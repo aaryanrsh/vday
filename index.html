@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Happy Valentine's Day</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wall-container" id="wallContainer">
+        <button class="sound-toggle" id="soundToggle" title="Toggle Sound">
+            <span class="sound-icon" id="soundIcon">🔊</span>
+        </button>
+        
+        <h1 class="heading">Happy Valentines Day</h1>
+        
+        <div class="camera-container">
+            <div class="polaroid-camera" id="polaroidCamera">
+                <div class="camera-body">
+                    <div class="camera-flash"></div>
+                    <div class="camera-lens"></div>
+                    <div class="camera-viewfinder"></div>
+                    <div class="camera-rainbow"></div>
+                    <button class="camera-snap-button" id="snapButton"></button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Note component (hidden initially) -->
+        <div class="note" id="note" style="display: none;">
+            <div class="note-content">
+                <p class="note-text">Happy Valentines Day</p>
+                <p class="note-body">These are some of my favorite photos of us. I have cherished all of our memories together. you are my favorite person ever. thank you for helping me grow up and be a better person. i love you</p>
+            </div>
+        </div>
+
+        <!-- Selfie capture interface (hidden initially) -->
+        <div class="selfie-capture" id="selfieCapture" style="display: none;">
+            <div class="selfie-modal">
+                <h2>Take a Selfie</h2>
+                <video id="videoPreview" autoplay playsinline></video>
+                <canvas id="captureCanvas" style="display: none;"></canvas>
+                <div class="selfie-controls">
+                    <button class="capture-button" id="captureButton">Capture</button>
+                    <button class="cancel-button" id="cancelButton">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background music -->
+    <audio id="backgroundMusic" loop>
+        <source src="music/Barfi Mashup All Songs.mp3" type="audio/mpeg">
+        <source src="music/background.mp3" type="audio/mpeg">
+        <source src="music/background.ogg" type="audio/ogg">
+        <source src="music/background.wav" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
