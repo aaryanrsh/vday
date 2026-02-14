@@ -209,7 +209,7 @@ function getRandomPosition(element, width = 250, height = 300) {
     const cameraRight = cameraCenterX + cameraWidth / 2;
     const cameraTop = cameraCenterY - cameraHeight / 2;
     const cameraBottom = cameraCenterY + cameraHeight / 2;
-    const cameraExclusionMargin = 60; // Extra margin around camera to prevent photos behind it
+    const cameraExclusionMargin = 120; // Large margin around camera to prevent photos behind it
     
     while (attempts < maxAttempts) {
         const padding = 20;
@@ -222,19 +222,19 @@ function getRandomPosition(element, width = 250, height = 300) {
         const minY = padding + headingHeight;
         const availableHeight = maxY - minY;
         
-        // Prioritize top and bottom areas, avoid middle (where camera is)
-        // 45% top, 10% middle, 45% bottom
+        // Strictly split between top and bottom - no middle
+        // 50% top, 50% bottom - completely avoid middle where camera is
         const zone = Math.random();
         let y;
-        if (zone < 0.45) {
+        const topAreaHeight = availableHeight * 0.35; // Top 35% of available space
+        const bottomAreaStart = availableHeight * 0.65; // Bottom 35% of available space
+        
+        if (zone < 0.5) {
             // Top area - use the space where note appears
-            y = minY + Math.random() * (availableHeight * 0.4);
-        } else if (zone < 0.55) {
-            // Middle area (small chance, but avoid camera center)
-            y = minY + (availableHeight * 0.4) + Math.random() * (availableHeight * 0.2);
+            y = minY + Math.random() * topAreaHeight;
         } else {
-            // Bottom area
-            y = minY + (availableHeight * 0.6) + Math.random() * (availableHeight * 0.4);
+            // Bottom area only
+            y = minY + bottomAreaStart + Math.random() * (availableHeight - bottomAreaStart);
         }
         
         const x = Math.random() * maxX + padding;
@@ -268,22 +268,22 @@ function getRandomPosition(element, width = 250, height = 300) {
     const minY = padding + headingHeight;
     const availableHeight = maxY - minY;
     
-    // Try to avoid camera area in fallback - prioritize top and bottom
+    // Try to avoid camera area in fallback - strictly top and bottom only
     let x, y;
     const fallbackAttempts = 15;
+    const topAreaHeight = availableHeight * 0.35;
+    const bottomAreaStart = availableHeight * 0.65;
+    
     for (let i = 0; i < fallbackAttempts; i++) {
         x = Math.random() * maxX + padding;
-        // Prioritize top and bottom: 50% top, 5% middle, 45% bottom
+        // Strictly 50% top, 50% bottom - no middle
         const zone = Math.random();
         if (zone < 0.5) {
-            // Top area - where note space is
-            y = minY + Math.random() * (availableHeight * 0.4);
-        } else if (zone < 0.55) {
-            // Middle area (very small chance, but avoid camera center)
-            y = minY + (availableHeight * 0.4) + Math.random() * (availableHeight * 0.2);
+            // Top area only
+            y = minY + Math.random() * topAreaHeight;
         } else {
-            // Bottom area
-            y = minY + (availableHeight * 0.6) + Math.random() * (availableHeight * 0.4);
+            // Bottom area only
+            y = minY + bottomAreaStart + Math.random() * (availableHeight - bottomAreaStart);
         }
         
         // Check if it's in camera zone
@@ -316,7 +316,7 @@ function getRandomPosition(element, width = 250, height = 300) {
 
 // Check if position collides with existing photos
 function hasCollision(x, y, width, height) {
-    const margin = 30; // Minimum distance between photos
+    const margin = 15; // Minimum distance between photos - reduced for better distribution
     
     for (const placed of placedPhotos) {
         if (

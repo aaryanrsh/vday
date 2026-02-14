@@ -1,0 +1,17 @@
+{
+  "name": "vday-polaroid-app",
+  "version": "1.0.0",
+  "description": "Valentine's Day Polaroid photo app",
+  "main": "script.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": ["valentine", "polaroid", "photo"],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0"
+  }
+}
